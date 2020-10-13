@@ -18,14 +18,25 @@ class HomeController extends AbstractController
     }
     /**
      * 
-     * @Route ("/", name="acceuil")
+     * @Route ("/", name="accueil")
      */
 
     public function acceuil()
     {
-        return $this->render('home/acceuil.html.twig', [
-            'age'=>31
+        return $this->render('home/index.html.twig', [
+            'day'=>'mardi'
         ]);
+
+    }
+
+    /**
+     * 
+     * @route ("/terrain", name="terrain")
+     */
+
+    public function ventes()
+    {
+        return $this->render('home/terrain.html.twig');
 
     }
 
@@ -33,11 +44,22 @@ class HomeController extends AbstractController
 
     /**
      * 
-     * @Route ("/a", name="client")
+     * @Route ("/appartement", name="appartement")
      */
-    public function client()
+    public function location()
     {
 
-        return $this->render('home/client.html.twig');
+        return $this->render('home/appartement.html.twig');
     }
+
+
+    public function affichage()
+    {
+        return $this->render('home/affichage.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+
+
 }

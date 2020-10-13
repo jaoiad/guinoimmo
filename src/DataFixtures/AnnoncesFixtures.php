@@ -10,7 +10,7 @@ class AnnoncesFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $annonces = new Annonces();
             $annonces->setTitle("annonce n°$i")
                      ->setContent("<p>Contenue de l'article n°$i</p>")
