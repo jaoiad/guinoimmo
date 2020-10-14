@@ -12,7 +12,7 @@
 	<br>
 	ACCESS LOCATION & VENTE D'APPARTEMENTS</br></div><div class="container">
 {% for annonces in annonce %}
-	<resume>
+	<article>
 		<h2>{{annonces.title}}</h2>
 		<div class="content">
 			<img src={{ annonces.image }} alt="" align="right">
@@ -20,7 +20,7 @@
 			<a href="" class="btn btn-primary">
 				Consultez mon article</a>
 		</div>
-	</resume>
+	</article>
 {% endfor %}
 
 {% endblock %}

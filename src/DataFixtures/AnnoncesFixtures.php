@@ -14,7 +14,7 @@ class AnnoncesFixtures extends Fixture
             $annonces = new Annonces();
             $annonces->setTitle("annonce n°$i")
                      ->setContent("<p>Contenue de l'article n°$i</p>")
-                     ->setImage("http://placehold.it/350*150")
+                     ->setImage("http://via.placeholder.com/150")
                      ->setCreateAt(new \DateTime());
 
             $manager->persist($annonces);
