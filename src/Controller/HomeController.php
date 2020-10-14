@@ -96,10 +96,13 @@ class HomeController extends AbstractController
      * 
      *  @Route ("/affichage", name="affichage")
      */
-    public function affichage()
+    public function affichage($id)
     {
+        $repo = $this->getDoctrine()->getRepository(Annonces::class);
+        $annonce= $repo ->findAll();
         return $this->render('home/affichage.html.twig', [
             'controller_name' => 'HomeController',
+            'annonce'=> $annonce
         ]);
     }
 }
