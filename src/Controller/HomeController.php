@@ -2,29 +2,38 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonces;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class HomeController extends AbstractController
 {
+
+    
+
     /**
      * @Route("/home", name="home")
      */
     public function index()
     {
+        $repo=$this->getDoctrine()->getRepository(Annonces::class);
+        $annonce=$repo->findAll();
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'annonce'=>$annonce
         ]);
     }
     /**
      * 
-     * @Route ("/", name="accueil")
+     * @Route ("/accueil", name="accueil")
      */
 
-    public function acceuil()
+    public function accueil()
     {
         return $this->render('home/index.html.twig', [
-            'day' => 'mardi'
+          
         ]);
     }
 
