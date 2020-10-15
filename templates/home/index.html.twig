@@ -6,21 +6,22 @@
 {% block body %}
 
 
-	<div class="jumbotron">
-		<br>
-		GUINOT IMMOBILIER:</br>
-	<br>
-	ACCESS LOCATION & VENTE D'APPARTEMENTS</br></div><div class="container">
-{% for annonces in annonce %}
+	<div class="alert alert-danger">
+	<h1>Guinot immobilier</h1>
+	<span>location et ventes immobilières</span>
+	</div>
+
+
 	<article>
-		<h2>{{annonces.title}}</h2>
+		<h2>{{title}}</h2>
+		<div class="metadata">Ecrit le 10/08/18 a 19h00</div>
 		<div class="content">
-			<img src={{ annonces.image }} alt="" align="right">
-			{{annonces.content | raw }} ecrit le {{annonces.createAt | date ('d/m/Y')}} à {{annonces.createAt | date ('H:i')}}
-			<a href="{{ path('afficher')}}" class="btn btn-primary"></a>
-				Consultez mon article</a>
+			<img src="" alt="">
+			<p>Dolorem aliquid quidem quod eius aut, eaque enim odio eligendi nisi maiores nulla consectetur mollitia!</p>
+			<p>Commodi, aut omnis aspernatur quidem hic sequi autem animi eos, velit, minus sit corporis optio.</p>
+			<a href="" class="btn btn-primary">Lire la suite</a>
 		</div>
 	</article>
-{% endfor %}
+
 
 {% endblock %}
