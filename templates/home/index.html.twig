@@ -1,26 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guinot-immobilier
+{% block title %}Guinot-annonces
 {% endblock %}
 
 {% block body %}
 
 
-	<div class="jumbotron">
-		<br>
-		GUINOT IMMOBILIER:</br>
-	<br>
-	ACCESS LOCATION & VENTE D'APPARTEMENTS</br></div><div class="container">
+<div class="jumbotron">
+		<h1>GUINOT annonces:</h1>
+		<span style="color:red">ACCESS LOCATION & VENTE D'APPARTEMENTS </span>
+</div>
+
+
 {% for annonces in annonce %}
-	<article>
-		<h2>{{annonces.title}}</h2>
-		<div class="content">
-			<img src={{ annonces.image }} alt="" align="right">
-			{{annonces.content | raw }} ecrit le {{annonces.createAt | date ('d/m/Y')}} à {{annonces.createAt | date ('H:i')}}
-			<a href="{{ path('afficher')}}" class="btn btn-primary"></a>
-				Consultez mon article</a>
-		</div>
-	</article>
+<div class = "article">
+   <article>
+          {# Faisant une interpollation#}
+          <div><h2>categorie / {{ annonces.title }}</h2></div>  
+            <p> Date de publication: {{ annonces.createAt | date('d/m/Y')}}</p>
+             <div class = "content">
+                <img src="{{ annonces.image}}" alt=""  align="center">
+                 <p align="justify"> {{ annonces.content | raw}}   </p> 
+                 <a href="{{ path('affichage', {'id': annonces.id })}}" class="btn btn-primary"> Consulter</a>  
+                   
+          </article>
+        
+
+	 </div>  
+
+
+	 <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ annonces.image}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ annonces.title }}</h5>
+    <p class="card-text">{{ annonces.content | raw}}</p>
+    <a href="{{ path('affichage', {'id': annonces.id })}}" class="btn btn-primary">Lire</a>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}
