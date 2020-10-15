@@ -1,27 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guinot-immobilier
-{% endblock %}
+{% block title %}Guinot-immobilier{% endblock %}
 
 {% block body %}
+    <div class = "jumbotron">
+        <br> GUINOT IMMOBILIER:</br>
+        <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
+    </div>
 
 
-	<div class="alert alert-danger">
-	<h1>Guinot immobilier</h1>
-	<span>location et ventes immobilières</span>
-	</div>
+<div class="container">
+
+{# Liste de ce que j'aimerai afficher#}
+<div class = "row">
+     {% for annonces in annonce %}     
+          <resume>
+               {# Faisant une interpollation#}
+               <h5>categorie / {{ annonces.title }}</h5>
+               <p> Date de publication: {{ annonces.createAt | date('d/m/Y')}}</p>
+               <div class = "content">
+                    <img src="{{ annonces.image}}" alt=""  align="left">
+                    <p align="justify"> {{ annonces.content | raw}}   </p> 
+                    <a href="{{ path('affichage', {'id': annonces.id })}}" class="btn btn-primary"> Consulter</a>  
+               </div>          
+          </resume>
+          <hr> </hr>
+     {% endfor %} 
+</div>
 
 
-	<article>
-		<h2>{{title}}</h2>
-		<div class="metadata">Ecrit le 10/08/18 a 19h00</div>
-		<div class="content">
-			<img src="" alt="">
-			<p>Dolorem aliquid quidem quod eius aut, eaque enim odio eligendi nisi maiores nulla consectetur mollitia!</p>
-			<p>Commodi, aut omnis aspernatur quidem hic sequi autem animi eos, velit, minus sit corporis optio.</p>
-			<a href="" class="btn btn-primary">Lire la suite</a>
-		</div>
-	</article>
 
 
 {% endblock %}
