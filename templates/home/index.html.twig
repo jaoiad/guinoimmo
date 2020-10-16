@@ -13,15 +13,15 @@
 
 {# Liste de ce que j'aimerai afficher#}
 <div class = "row">
-     {% for annonces in annonce %}     
+     {% for zepi in annonce %}     
           <resume>
                {# Faisant une interpollation#}
-               <h5>categorie / {{ annonces.title }}</h5>
-               <p> Date de publication: {{ annonces.createAt | date('d/m/Y')}}</p>
+               <h5>categorie / {{ zepi.title }}</h5>
+               <p> Date de publication: {{ zepi.createAt | date('d/m/Y')}}</p>
                <div class = "content">
-                    <img src="{{ annonces.image}}" alt=""  align="left">
-                    <p align="justify"> {{ annonces.content | raw}}   </p> 
-                    <a href="{{ path('affichage', {'id': annonces.id })}}" class="btn btn-primary"> Consulter</a>  
+                    <img src="{{ zepi.image}}" alt=""  align="left">
+                    <p align="justify"> {{ zepi.content | raw}}   </p> 
+                    <a href="{{ path('affichage', {'id': zepi.id })}}" class="btn btn-primary"> Consulter</a>  
                </div>          
           </resume>
           <hr> </hr>
