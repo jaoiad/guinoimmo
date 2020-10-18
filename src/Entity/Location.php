@@ -37,13 +37,14 @@ class Location
      */
     private $image;
 
+  
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $surface;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $type_maison;
 

@@ -6,23 +6,25 @@ use App\Entity\Annonces;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Repository\AnnoncesRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class HomeController extends AbstractController
 {
 
-    
+
 
     /**
      * @Route("/home", name="home")
      */
-    public function index()
+    public function index(AnnoncesRepository $repo)
     {
-        $repo=$this->getDoctrine()->getRepository(Annonces::class);
-        $annonce=$repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(Annonces::class);
+        $annonce = $repo->findAll();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'annonce'=>$annonce
+            'annonce' => $annonce
         ]);
     }
     /**
@@ -32,9 +34,7 @@ class HomeController extends AbstractController
 
     public function accueil()
     {
-        return $this->render('home/index.html.twig', [
-          
-        ]);
+        return $this->render('home/index.html.twig', []);
     }
 
     /**
@@ -94,15 +94,33 @@ class HomeController extends AbstractController
 
     /**
      * 
-     *  @Route ("/affichage", name="affichage")
+     *  @Route ("/affichage/{id}", name="affichage")
      */
-    public function affichage($id)
+    public function affichage(Annonces $annonce)
     {
-        $repo = $this->getDoctrine()->getRepository(Annonces::class);
-        $annonce= $repo ->findAll();
+
+
         return $this->render('home/affichage.html.twig', [
-            'controller_name' => 'HomeController',
-            'annonce'=> $annonce
+            'annonce' => $annonce
+        ]);
+    }
+
+
+    /**
+     * @route ("/new" , name="create")
+     */
+    public function create()
+    {
+
+        $annonce = new Annonces();
+        $form = $this->createformbuilder($annonce)
+            ->add('title')
+            ->add('content')
+            ->add('image')
+            ->getForm();
+
+        return $this->render('home/create.html.twig', [
+            'formarticle' => $form->createView()
         ]);
     }
 }

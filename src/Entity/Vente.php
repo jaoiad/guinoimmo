@@ -37,8 +37,9 @@ class Vente
      */
     private $image;
 
+ 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $surface;
 
