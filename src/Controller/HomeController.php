@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Annonces;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use doctrine\Common\Persistence\ObjectManager;
 use App\Repository\AnnoncesRepository;
+use Symfony\component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class HomeController extends AbstractController
@@ -109,7 +112,7 @@ class HomeController extends AbstractController
     /**
      * @route ("/new" , name="create")
      */
-    public function create()
+    public function create(Request $request, ObjectManager $manager)
     {
 
         $annonce = new Annonces();
@@ -118,7 +121,8 @@ class HomeController extends AbstractController
             ->add('content')
             ->add('image')
             ->getForm();
-
+        $form->handleRequest($request);
+        dump($annonce);
         return $this->render('home/create.html.twig', [
             'formarticle' => $form->createView()
         ]);
