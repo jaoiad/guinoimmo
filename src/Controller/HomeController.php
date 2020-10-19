@@ -5,12 +5,9 @@ namespace App\Controller;
 use App\Entity\Annonces;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\AnnoncesRepository;
 use Symfony\component\HttpFoundation\Request;
-
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class HomeController extends AbstractController
 {
@@ -109,22 +106,31 @@ class HomeController extends AbstractController
     }
 
 
-    /**
-     * @route ("/new" , name="create")
-     */
-    public function create(Request $request, ObjectManager $manager)
+ /** 
+     * @Route("/new", name="create")
+    */
+    
+    // Creation d'un nouveau Bien
+    public function new(Request $request, ObjectManager $manager)
     {
-
+        $entityManager = $this->entityManager;
         $annonce = new Annonces();
-        $form = $this->createformbuilder($annonce)
-            ->add('title')
-            ->add('content')
-            ->add('image')
-            ->getForm();
+
+        // Demande de al creation du Formaulaire avec CreateFormBuilder
+        $form = $this->createFormBuilder($annonce)
+                    ->add('titre')
+                    ->add('photo')                
+                    ->add('description')    
+                    ->getForm();
+        
+        // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
-        dump($annonce);
-        return $this->render('home/create.html.twig', [
-            'formarticle' => $form->createView()
+         
+            
+        //aPassage à Twig des Variable à afficher avec lmethode CreateView
+        return $this->render('home/index.html.twig', [
+            'FormAnnonce' => $form->createView()
         ]);
     }
+  
 }

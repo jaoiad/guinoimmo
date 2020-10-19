@@ -39,7 +39,7 @@ class Location
 
   
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="int")
      */
     private $surface;
 
