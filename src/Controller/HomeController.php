@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Location;
 use App\Entity\Annonces;
+use App\Form\LocationType;
 use App\Repository\AnnoncesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,10 +22,10 @@ class HomeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-
     /**
      * @Route ("/accueil", name="accueil")
      * @Route("/home", name="home")
+     *
      */
     public function index(AnnoncesRepository $repo)
     {
@@ -99,8 +100,6 @@ class HomeController extends AbstractController
      */
     public function affichage(Annonces $annonce)
     {
-
-
         return $this->render('home/affichage.html.twig', [
             'annonce' => $annonce
         ]);
@@ -108,17 +107,21 @@ class HomeController extends AbstractController
 
 
     /**
-     * @route ("/new" , name="")
+     * @route ("/new" , name="create")
      */
     public function create(Request $request)
     {
         $entityManager = $this->entityManager;
         $annonce = new Annonces();
-        $form = $this->createformbuilder($annonce)
+
+        // Demande de al creation du Formaulaire avec CreateFormBuilder
+        $form = $this->createFormBuilder($annonce)
             ->add('title')
-            ->add('content')
             ->add('image')
+            ->add('content')
             ->getForm();
+
+        // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,21 +139,23 @@ class HomeController extends AbstractController
 
         //aPassage à Twig des Variable à afficher avec lmethode CreateView
         return $this->render('home/create.html.twig', [
-            'formarticle' => $form->createView()
+            'FormAnnonce' => $form->createView()
         ]);
     }
+
+
 
 
     /** 
      * @Route("/newlocation", name="newlocation")
      */
 
-    public function newlocation(Request $request)
+    public function newlocation(Request $request): response
     {
         $entityManager = $this->entityManager;
 
         $location = new Location;
-        // j'appelle la classe location type pour mes champs
+
         $form = $this->createForm(LocationType::class, $location);
         // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
