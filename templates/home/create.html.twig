@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% form_theme formarticle 'bootstrap_4_layout.html.twig' %}
 {% block body %}
+<div class="col-10">
+
+{# Liste de ce que j'aimerai afficher#}
 
 	<h1>création d'un article</h1>
 	{{form_start(formarticle)}}
@@ -12,5 +15,5 @@
 	<button type="submit" class="btn btn-success">Ajouter l'article</button>
 	
 	{{form_end(formarticle)}}
-
+</div>
 {% endblock %}

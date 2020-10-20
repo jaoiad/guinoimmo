@@ -2,22 +2,28 @@
 
 namespace App\Controller;
 
+use App\Entity\Location;
 use App\Entity\Annonces;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use doctrine\Common\Persistence\ObjectManager;
 use App\Repository\AnnoncesRepository;
-use Symfony\component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class HomeController extends AbstractController
 {
-
+    protected $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
 
     /**
+     * @Route ("/accueil", name="accueil")
      * @Route("/home", name="home")
      */
     public function index(AnnoncesRepository $repo)
@@ -30,15 +36,7 @@ class HomeController extends AbstractController
             'annonce' => $annonce
         ]);
     }
-    /**
-     * 
-     * @Route ("/accueil", name="accueil")
-     */
 
-    public function accueil()
-    {
-        return $this->render('home/index.html.twig', []);
-    }
 
     /**
      * 
@@ -110,11 +108,11 @@ class HomeController extends AbstractController
 
 
     /**
-     * @route ("/new" , name="create")
+     * @route ("/new" , name="")
      */
-    public function create(Request $request, ObjectManager $manager)
+    public function create(Request $request)
     {
-
+        $entityManager = $this->entityManager;
         $annonce = new Annonces();
         $form = $this->createformbuilder($annonce)
             ->add('title')
@@ -122,9 +120,51 @@ class HomeController extends AbstractController
             ->add('image')
             ->getForm();
         $form->handleRequest($request);
-        dump($annonce);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Affectation de la Date à mon article
+            $annonce->setCreateAt(new \DateTime());
+
+            $entityManager->persist($annonce);
+            $entityManager->flush();
+
+            //Enregistrement et Retour sur la page de l'article
+            return $this->redirectToRoute('index', ['id' => $annonce->getId()]);
+        }
+
+
+        //aPassage à Twig des Variable à afficher avec lmethode CreateView
         return $this->render('home/create.html.twig', [
             'formarticle' => $form->createView()
+        ]);
+    }
+
+
+    /** 
+     * @Route("/newlocation", name="newlocation")
+     */
+
+    public function newlocation(Request $request)
+    {
+        $entityManager = $this->entityManager;
+
+        $location = new Location;
+        // j'appelle la classe location type pour mes champs
+        $form = $this->createForm(LocationType::class, $location);
+        // Traitement de la requete (http) passée en parametre
+        $form->handleRequest($request);
+        // Test sur le Remplissage / la soummision et la validité des champs
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location->setCreatAt(new \DateTime());
+            $entityManager->persist($location);
+            $entityManager->flush();
+        }
+
+
+
+        return $this->render('home/newlocation.html.twig', [
+            'newlocation' => $form->createView()
         ]);
     }
 }
