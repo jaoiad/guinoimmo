@@ -1,35 +1,18 @@
 {% extends 'base.html.twig' %}
 {% form_theme FormAnnonce 'bootstrap_4_layout.html.twig' %}
 {% block body %}
-<<<<<<< HEAD
-<div class="col-10">
-
-{# Liste de ce que j'aimerai afficher#}
-=======
-	<div class="row">
-		<div class="col-6">
+	<div class="content">
+		<div class="col-8">
 			<h1>création d'un article</h1>
 			{{form_start(FormAnnonce)}}
->>>>>>> 7f6bbe592145aaff5b4097c2f8e5244d652076f0
 
 			{{form_row(FormAnnonce.title, {'attr':{'placeholder':"titre de l'article"}})}}
 			{{form_row(FormAnnonce.content, {'attr':{'placeholder':"contenu de l'article"}})}}
 			{{form_row(FormAnnonce.image, {'attr':{'placeholder':"url de l'image"}})}}
 
-<<<<<<< HEAD
-	{{form_row(formarticle.title, {'attr':{'placeholder':"titre de l'article"}})}}
-	{{form_row(formarticle.content, {'attr':{'placeholder':"contenu de l'article"}})}}
-	{{form_row(formarticle.image, {'attr':{'placeholder':"url de l'image"}})}}
-	
-	<button type="submit" class="btn btn-success">Ajouter l'article</button>
-	
-	{{form_end(formarticle)}}
-</div>
-=======
 			<button type="submit" class="btn btn-success">Ajouter l'article</button>
 
 			{{form_end(FormAnnonce)}}
 		</div>
 	</div>
->>>>>>> 7f6bbe592145aaff5b4097c2f8e5244d652076f0
 {% endblock %}

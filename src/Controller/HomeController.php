@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class HomeController extends AbstractController
@@ -38,7 +39,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-
     /**
      * 
      * @route ("/terrain", name="terrain")
@@ -49,17 +49,14 @@ class HomeController extends AbstractController
         return $this->render('home/terrain.html.twig');
     }
 
-
     /**
      * 
      * @Route ("/appartement", name="appartement")
      */
     public function location()
     {
-
         return $this->render('home/appartement.html.twig');
     }
-
 
     /**
      * 
@@ -67,10 +64,8 @@ class HomeController extends AbstractController
      */
     public function test()
     {
-
         return $this->render('home/test.html.twig');
     }
-
 
     /**
      * 
@@ -78,10 +73,8 @@ class HomeController extends AbstractController
      */
     public function administration()
     {
-
         return $this->render('home/administration.html.twig');
     }
-
 
     /**
      * 
@@ -92,7 +85,6 @@ class HomeController extends AbstractController
 
         return $this->render('home/connexion.html.twig');
     }
-
 
     /**
      * 
@@ -105,14 +97,19 @@ class HomeController extends AbstractController
         ]);
     }
 
-
     /**
      * @route ("/new" , name="create")
+     * @route ("/new/{id}/edit", name="edit")
      */
-    public function create(Request $request)
+    public function form(Annonces $annonce, Request $request)
     {
         $entityManager = $this->entityManager;
-        $annonce = new Annonces();
+
+        if(!$annonce){
+
+            $annonce = new Annonces();
+        }
+    
 
         // Demande de al creation du Formaulaire avec CreateFormBuilder
         $form = $this->createFormBuilder($annonce)
@@ -129,13 +126,12 @@ class HomeController extends AbstractController
             // Affectation de la Date à mon article
             $annonce->setCreateAt(new \DateTime());
 
-            $entityManager->persist($annonce);
-            $entityManager->flush();
+            $manager->persist($annonce);
+            $manager->flush();
 
             //Enregistrement et Retour sur la page de l'article
             return $this->redirectToRoute('index', ['id' => $annonce->getId()]);
         }
-
 
         //aPassage à Twig des Variable à afficher avec lmethode CreateView
         return $this->render('home/create.html.twig', [
@@ -148,9 +144,10 @@ class HomeController extends AbstractController
 
     /** 
      * @Route("/newlocation", name="newlocation")
+     * 
      */
 
-    public function newlocation(Request $request): response
+    public function newlocation(Request $request)
     {
         $entityManager = $this->entityManager;
 
@@ -159,6 +156,8 @@ class HomeController extends AbstractController
         $form = $this->createForm(LocationType::class, $location);
         // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
+       
+      
         // Test sur le Remplissage / la soummision et la validité des champs
         if ($form->isSubmitted() && $form->isValid()) {
             $location->setCreatAt(new \DateTime());
