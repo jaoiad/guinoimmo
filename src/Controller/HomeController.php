@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ObjectManager as PersistenceObjectManager;
 
 class HomeController extends AbstractController
 {
@@ -82,7 +84,6 @@ class HomeController extends AbstractController
      */
     public function connexion()
     {
-
         return $this->render('home/connexion.html.twig');
     }
 
@@ -98,18 +99,18 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @route ("/new" , name="create")
-     * @route ("/new/{id}/edit", name="edit")
+     * @route ("/new" , name="ann_create")
+     * @route ("/new/{id}/edit", name="ann_edit")
      */
-    public function form(Annonces $annonce, Request $request)
+    public function form(Annonces $annonce, Request $request, EntityManagerInterface $manager)
     {
-        $entityManager = $this->entityManager;
 
-        if(!$annonce){
-
+        if ($annonce==null) {
             $annonce = new Annonces();
         }
-    
+
+
+
 
         // Demande de al creation du Formaulaire avec CreateFormBuilder
         $form = $this->createFormBuilder($annonce)
@@ -156,8 +157,8 @@ class HomeController extends AbstractController
         $form = $this->createForm(LocationType::class, $location);
         // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
-       
-      
+
+
         // Test sur le Remplissage / la soummision et la validité des champs
         if ($form->isSubmitted() && $form->isValid()) {
             $location->setCreatAt(new \DateTime());
