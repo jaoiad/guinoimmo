@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% form_theme newlocation 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Guinot-immobilier{% endblock %}
+
+{% block body %}
+    <div class = "jumbotron">
+        <br> GUINOT IMMOBILIER:</br>
+        <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
+    </div>
+
+
+<div class="container">
+
+{# Liste de ce que j'aimerai afficher#}
+<div class = "row">
+        <div class="col-6">
+          <resume>
+          {{form_start(newlocation)}}
+             {{form_widget(newlocation)}}
+
+             <button type="submit" class="btn btn-succes">Ajouter une location</button>
+               {{form_end(newlocation)}}
+               </div>          
+          </resume>
+          <hr> </hr>
+  
+</div>
+
+
+</div>
+
+{% endblock %}
