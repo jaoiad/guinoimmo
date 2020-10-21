@@ -100,17 +100,13 @@ class HomeController extends AbstractController
 
     /**
      * @route ("/new" , name="ann_create")
-     * @route ("/new/{id}/edit", name="ann_edit")
+     * @route ("/new/{id}", name="ann_edit")
      */
-    public function form(Annonces $annonce, Request $request, EntityManagerInterface $manager)
+    public function form(Annonces $annonce = null, Request $request, EntityManagerInterface $manager)
     {
-
-        if ($annonce==null) {
+        if (!$annonce) {
             $annonce = new Annonces();
         }
-
-
-
 
         // Demande de al creation du Formaulaire avec CreateFormBuilder
         $form = $this->createFormBuilder($annonce)
@@ -124,8 +120,9 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Affectation de la Date à mon article
-            $annonce->setCreateAt(new \DateTime());
+            if (!$annonce->getId()){
+                $annonce->setCreateAt(new \DateTime());
+            }
 
             $manager->persist($annonce);
             $manager->flush();
@@ -136,12 +133,29 @@ class HomeController extends AbstractController
 
         //aPassage à Twig des Variable à afficher avec lmethode CreateView
         return $this->render('home/create.html.twig', [
-            'FormAnnonce' => $form->createView()
+            'FormAnnonce' => $form->createView(),
+            'editMode'=>$annonce ->getId()!== null
         ]);
     }
 
 
+    /**
+     * @Route("new/{id}/delete", name="ann_delete")
+     */
 
+     
+    public function delete(Annonces $annonce, Request $request, EntityManagerInterface $Manager )
+    {
+        $annonce = new Annonces();
+        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+            $Manager = $this->getDoctrine()->getManager();
+            $Manager->remove($annonce);
+            $Manager->flush();
+        }
+        return $this->redirectToRoute('index');
+    }
+
+    
 
     /** 
      * @Route("/newlocation", name="newlocation")
