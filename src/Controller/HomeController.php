@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
@@ -26,14 +26,18 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @param
      * @Route ("/accueil", name="accueil")
      * @Route("/home", name="home")
-     *
      */
-    public function index(AnnoncesRepository $repo)
+    public function index(AnnoncesRepository $repo, PaginatorInterface $paginator, request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Annonces::class);
-        $annonce = $repo->findAll();
+        $annonce = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1),/*page number*/
+            9/*limit per page*/
+        );
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
@@ -120,7 +124,7 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (!$annonce->getId()){
+            if (!$annonce->getId()) {
                 $annonce->setCreateAt(new \DateTime());
             }
 
@@ -134,7 +138,7 @@ class HomeController extends AbstractController
         //aPassage à Twig des Variable à afficher avec lmethode CreateView
         return $this->render('home/create.html.twig', [
             'FormAnnonce' => $form->createView(),
-            'editMode'=>$annonce ->getId()!== null
+            'editMode' => $annonce->getId() !== null
         ]);
     }
 
@@ -143,19 +147,19 @@ class HomeController extends AbstractController
      * @Route("new/{id}/delete", name="ann_delete")
      */
 
-     
-    public function delete(Annonces $annonce, Request $request, EntityManagerInterface $Manager )
+
+    public function delete(Annonces $annonce, Request $request, EntityManagerInterface $Manager)
     {
         $annonce = new Annonces();
-        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
-            $Manager = $this->getDoctrine()->getManager();
-            $Manager->remove($annonce);
-            $Manager->flush();
-        }
+
+        $Manager = $this->getDoctrine()->getManager();
+        $Manager->remove($annonce);
+        $Manager->flush();
+
         return $this->redirectToRoute('index');
     }
 
-    
+
 
     /** 
      * @Route("/newlocation", name="newlocation")

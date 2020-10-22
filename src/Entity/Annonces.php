@@ -20,19 +20,19 @@ class Annonces
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\length(min=10, max=255)
+     *
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\length(min=10)
+     *
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url()
+     *
      */
     private $image;
 
