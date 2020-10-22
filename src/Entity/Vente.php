@@ -126,12 +126,12 @@ class Vente
         return $this;
     }
 
-    public function getSurface(): ?int
+    public function getSurface(): ?string
     {
         return $this->surface;
     }
 
-    public function setSurface(int $surface): self
+    public function setSurface(string $surface): self
     {
         $this->surface = $surface;
 

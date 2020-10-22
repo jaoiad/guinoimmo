@@ -99,7 +99,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @ParamConverter("Annonces", class="Annonces")
      * @route ("/new" , name="ann_create")
      * @route ("/new/{id}", name="ann_edit")
      */
@@ -180,6 +179,7 @@ class HomeController extends AbstractController
             $entityManager->persist($location);
             $entityManager->flush();
         }
+
 
 
         return $this->render('home/newlocation.html.twig', [
