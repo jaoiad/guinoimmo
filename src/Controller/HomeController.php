@@ -99,18 +99,15 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @ParamConverter("Annonces", class="Annonces")
      * @route ("/new" , name="ann_create")
      * @route ("/new/{id}/edit", name="ann_edit")
      */
     public function form(Annonces $annonce, Request $request, EntityManagerInterface $manager)
     {
-
-        if ($annonce==null) {
+        if (!$annonce) {
             $annonce = new Annonces();
         }
-
-
-
 
         // Demande de al creation du Formaulaire avec CreateFormBuilder
         $form = $this->createFormBuilder($annonce)
@@ -165,7 +162,6 @@ class HomeController extends AbstractController
             $entityManager->persist($location);
             $entityManager->flush();
         }
-
 
 
         return $this->render('home/newlocation.html.twig', [
