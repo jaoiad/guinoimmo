@@ -141,10 +141,10 @@ class HomeController extends AbstractController
      * @Route("/delete/{id}", name="ann_delete")
      */
 
-    public function delete(Annonces $annonce, EntityManagerInterface $caca)
+    public function delete(Annonces $annonce, EntityManagerInterface $delet)
     {
-            $caca->remove($annonce);
-            $caca->flush();
+            $delet->remove($annonce);
+            $delet->flush();
         
         return $this->redirectToRoute('index');
     }
