@@ -19,12 +19,7 @@ use Doctrine\Persistence\ObjectManager as PersistenceObjectManager;
 
 class HomeController extends AbstractController
 {
-    protected $entityManager;
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
+    
     /**
      * @param
      * @Route ("/accueil", name="accueil")
@@ -32,7 +27,6 @@ class HomeController extends AbstractController
      */
     public function index(AnnoncesRepository $repo, PaginatorInterface $paginator, request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Annonces::class);
         $annonce = $paginator->paginate(
             $repo->findAll(),
             $request->query->getInt('page', 1),/*page number*/
@@ -144,18 +138,14 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("new/{id}/delete", name="ann_delete")
+     * @Route("/delete/{id}", name="ann_delete")
      */
 
-
-    public function delete(Annonces $annonce, Request $request, EntityManagerInterface $Manager)
+    public function delete(Annonces $annonce, EntityManagerInterface $caca)
     {
-        $annonce = new Annonces();
-
-        $Manager = $this->getDoctrine()->getManager();
-        $Manager->remove($annonce);
-        $Manager->flush();
-
+            $caca->remove($annonce);
+            $caca->flush();
+        
         return $this->redirectToRoute('index');
     }
 

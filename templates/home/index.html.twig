@@ -9,7 +9,7 @@
     </div>
 
 
-< class="container">
+<div class="container">
 
 {# Liste de ce que j'aimerai afficher#}
 <div class = "row">
@@ -23,7 +23,7 @@
                     <p align="justify"> {{ zepi.content | raw}}   </p> 
                     <a href="{{ path('affichage', {'id': zepi.id })}}" class="btn btn-primary"> Consulter</a>  
                     <a href="{{path('ann_edit', {'id':zepi.id})}}" class="btn btn-success"> modifier</a>  
-                    <a href="" class="btn btn-danger"> supprimer</a>  
+                    <a href="{{path ('ann_delete',{'id':zepi.id})}}" class="btn btn-danger"> supprimer</a>  
 
                </div>          
           </resume>
