@@ -42,6 +42,7 @@ class HomeController extends AbstractController
     /**
      * 
      * @route ("/terrain", name="terrain")
+     * d
      */
 
     public function ventes()
@@ -139,6 +140,7 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="ann_delete")
+     * 
      */
 
     public function delete(Annonces $annonce, EntityManagerInterface $delet)
@@ -153,24 +155,26 @@ class HomeController extends AbstractController
 
     /** 
      * @Route("/newlocation", name="newlocation")
-     * 
+     * @Route("/newlocation", name="newlocation")
      */
 
-    public function newlocation(Request $request)
+    public function newlocation(Location $locations=null, Request $request,EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->entityManager;
+      
+    
+            $locations = new Location();
+        
+      
 
-        $location = new Location;
-
-        $form = $this->createForm(LocationType::class, $location);
+        $form = $this->createForm(LocationType::class, $locations);
         // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
 
 
         // Test sur le Remplissage / la soummision et la validité des champs
         if ($form->isSubmitted() && $form->isValid()) {
-            $location->setCreatAt(new \DateTime());
-            $entityManager->persist($location);
+            $locations->setCreatAt(new \DateTime());
+            $entityManager->persist($locations);
             $entityManager->flush();
         }
 
