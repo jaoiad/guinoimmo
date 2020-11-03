@@ -13,17 +13,23 @@
 
 {# Liste de ce que j'aimerai afficher#}
 <div class = "row">
-     {% for zepi in annonce %}     
+     {% for location in annonce %}     
           <resume>
                {# Faisant une interpollation#}
-               <h5>categorie / {{ zepi.title }}</h5>
-               <p> Date de publication: {{ zepi.createAt | date('d/m/Y')}}</p>
+               <h3>categorie:{{ location.categorie }}</h3>
+               <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                <div class = "content">
-                    <img src="{{ zepi.image}}" alt=""  align="left">
-                    <p align="justify"> {{ zepi.content | raw}}   </p> 
-                    <a href="{{ path('affichage', {'id': zepi.id })}}" class="btn btn-primary"> Consulter</a>  
-                    <a href="{{path('ann_edit', {'id':zepi.id})}}" class="btn btn-success"> modifier</a>  
-                    <a href="{{path ('ann_delete',{'id':zepi.id})}}" class="btn btn-danger"> supprimer</a>  
+                    <img align="justify"src="{{ location.image}}" alt=""  align="left">
+                    <p align="justify"> {{ location.denomination | raw}}  </p>
+                    <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
+                    <p align="justify"> Surface: {{ location.surface | raw}} </p> 
+                    <p align="justify"> Type: {{ location.typemaison | raw}} </p> 
+                    <p align="justify"> Chambres: {{ location.chambres | raw}} </p>
+                    <p align="justify"> Etage: {{ location.etage | raw}} </p>
+                    <p align="justify"> Prix du bien : {{ location.cout | raw}} </p>    
+                    <a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-primary"> Consulter</a>  
+                      
+                      
 
                </div>          
           </resume>

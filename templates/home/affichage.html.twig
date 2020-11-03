@@ -1,31 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guinot-immobilier
-{% endblock %}
+{% block title %}Guinot-immobilier{% endblock %}
 
 {% block body %}
-	<div class="jumbotron">
-		<br>GUINOT IMMOBILIER:</br>
-            <br>ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
+    <div class = "jumbotron">
+        <br> GUINOT IMMOBILIER:</br>
+        <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
     </div>
+
 
 <div class="container">
 
-<div class="row">
-	<div class="col-6">
-		<resume>
+{# Liste de ce que j'aimerai afficher#}
+<div class = "row">
+     
+          <resume>
+               {# Faisant une interpollation#}
+               <h5>categorie / {{ location.categorie }}</h5>
+               <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
+               <div class = "content">
+                    <img align="right" src="{{ location.image}}" alt=""  align="left">
+                    <p align="justify"> {{ location.denomination | raw}}  </p>
+                    <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
+                    <p align="justify"> Surface: {{ location.surface | raw}} </p> 
+                    <p align="justify"> Type: {{ location.typemaison | raw}} </p> 
+                    <p align="justify"> Chambres: {{ location.chambres | raw}} </p>
+                    <p align="justify"> Etage: {{ location.etage | raw}} </p>
+                    <p align="justify"> Prix du bien : {{ location.cout | raw}} </p>      
+                    <a href="{{path('ann_edit', {'id':location.id})}}" class="btn btn-success"> modifier</a>  
+                    <a href="{{ path ('ann_delete',{'id':location.id})}}" class="btn btn-danger"> supprimer</a>  
 
-			<h5>categorie /{{ annonce.title }}</h5>
-			<p>Date de publication:{{ annonce.createAt | date('d/m/Y')}}</p>
-			<div class="content">
-				<img src="{{ annonce.image}}" alt="" align="left">
-				<p align="justify">{{ annonce.content | raw}}
-				</p>
-			</div>
-		</resume>
-		<hr>    
-	</hr>
-    <button type="submit" class="btn btn-success"> </button>
+               </div>          
+          </resume>
+          <hr> </hr>
+   
 </div>
+
+
+ 
+
+
+
+
 
 {% endblock %}
