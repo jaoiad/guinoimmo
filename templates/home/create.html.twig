@@ -1,24 +1,28 @@
 {% extends 'base.html.twig' %}
 {% form_theme FormAnnonce 'bootstrap_4_layout.html.twig' %}
 {% block body %}
-	<div class="content">
+	<div class="form-group">
 		<div class="col-8">
-			<h1>création d'un article</h1>
-			{{form_start(FormAnnonce)}}
 
-			{{form_row(FormAnnonce.title, {'attr':{'placeholder':"titre de l'article"}})}}
-			{{form_row(FormAnnonce.content, {'attr':{'placeholder':"contenu de l'article"}})}}
-			{{form_row(FormAnnonce.image, {'attr':{'placeholder':"url de l'image"}})}}
+			{% if editMode %}
+				<h1>{{message1}}</h1>
+			{% else %}
+				<h1>{{message2}}</h1>
+			{% endif %}
+
+			{{form_start(FormAnnonce)}}
+			
+			{{form_widget(FormAnnonce)}}
 
 			<button type="submit" class="btn btn-success">
 				{% if editMode %}
 					Enregistrer les modifications
 				{% else %}
-					Ajouter un article
+					Ajouter une annonce
 				{% endif %}
 			</button>
-
+</div>
 			{{form_end(FormAnnonce)}}
-		</div>
+		
 	</div>
 {% endblock %}

@@ -16,7 +16,7 @@
      {% for location in annonce %}     
           <resume>
                {# Faisant une interpollation#}
-               <h3>categorie:{{ location.categorie }}</h3>
+               <h4>categorie: {{ location.categorie }}</h4>
                <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                <div class = "content">
                     <img align="justify"src="{{ location.image}}" alt=""  align="left">

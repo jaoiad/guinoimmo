@@ -144,8 +144,10 @@ class HomeController extends AbstractController
         
         }
 
-        return $this->render('home/newlocation.html.twig', [
-            'newlocation' => $form->createView(),
+        return $this->render('home/create.html.twig', [
+            'message1'=>'Modifier votre annonce',
+            'message2'=>'Ajouter une annonce',
+            'FormAnnonce' => $form->createView(),
             'editMode' => $locations->getId() !== null
         ]);
     }
