@@ -28,7 +28,7 @@ class HomeController extends AbstractController
      */
     public function index(LocationRepository $repo, PaginatorInterface $paginator, request $request)
     {
-            $annonce = $paginator->paginate(
+        $annonce = $paginator->paginate(
             $repo->findAll(),
             $request->query->getInt('page', 1),/*page number*/
             9/*limit per page*/
@@ -96,7 +96,7 @@ class HomeController extends AbstractController
         ]);
     }
 
- 
+
 
 
     /**
@@ -118,38 +118,40 @@ class HomeController extends AbstractController
      * @route ("/new/{id}", name="ann_edit")
      */
 
-    public function newlocation(Location $locations=null, Request $request, EntityManagerInterface $entityManager)
+    public function newlocation(Location $locations = null, Request $request, EntityManagerInterface $entityManager)
     {
-        
-            if (!$locations) {
-                $locations = new Location();
-            }
-       
+
+        if (!$locations) {
+            $locations = new Location();
+        }
+
         $form = $this->createForm(LocationType::class, $locations);
         // Traitement de la requete (http) passée en parametre
         $form->handleRequest($request);
 
         // Test sur le Remplissage / la soummision et la validité des champs
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-    
-            if(!$locations->getId()){
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$locations->getId()) {
                 $locations->setCreatAt(new \DateTime());
             }
-                 $entityManager->persist($locations);
-                 $entityManager->flush();
+            $entityManager->persist($locations);
+            $entityManager->flush();
+            if ($locations) {
+                $this->addFlash('success', 'Bien ajouter avec success');
+            } 
+                $this->addFlash('success', 'Bien modifier avec success');
             
-                 //Enregistrement et Retour sur la page de l'article
-             return $this->redirectToRoute('index', ['id' => $locations->getId()]);
-        
+
+            //Enregistrement et Retour sur la page de l'article
+            return $this->redirectToRoute('index', ['id' => $locations->getId()]);
         }
 
         return $this->render('home/create.html.twig', [
-            'message1'=>'Modifier votre annonce',
-            'message2'=>'Ajouter une annonce',
+            'message1' => 'Modifier votre Location',
+            'message2' => 'Ajouter une Location',
             'FormAnnonce' => $form->createView(),
             'editMode' => $locations->getId() !== null
         ]);
     }
-
 }

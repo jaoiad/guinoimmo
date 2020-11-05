@@ -27,11 +27,7 @@ class Location
      */
     private $denomination;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $categorie;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -73,6 +69,12 @@ class Location
      */
     private $accessibilite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="locations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categories;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,17 +104,6 @@ class Location
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(string $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -206,6 +197,18 @@ class Location
     public function setAccessibilite(string $accessibilite): self
     {
         $this->accessibilite = $accessibilite;
+
+        return $this;
+    }
+
+    public function getCategories(): ?Categorie
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Categorie $categories): self
+    {
+        $this->categories = $categories;
 
         return $this;
     }

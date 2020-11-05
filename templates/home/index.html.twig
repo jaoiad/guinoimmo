@@ -7,16 +7,19 @@
         <br> GUINOT IMMOBILIER:</br>
         <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
     </div>
-
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 
 <div class="container">
-
 {# Liste de ce que j'aimerai afficher#}
 <div class = "row">
      {% for location in annonce %}     
           <resume>
                {# Faisant une interpollation#}
-               <h4>categorie: {{ location.categorie }}</h4>
+               <h4>categorie: {{ location.categories.titre }}</h4>
                <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                <div class = "content">
                     <img align="justify"src="{{ location.image}}" alt=""  align="left">

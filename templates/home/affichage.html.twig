@@ -16,7 +16,7 @@
      
           <resume>
                {# Faisant une interpollation#}
-               <h5>categorie {{ location.categorie }}</h5>
+               <h5>categorie : {{location.categories.titre}}</h5>
                <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                <div class = "content">
                     <img align="right" src="{{ location.image}}" alt=""  align="left">
