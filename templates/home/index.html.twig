@@ -13,15 +13,14 @@
     </div>
 {% endfor %}
 
+
 <div class="container">
-{# Liste de ce que j'aimerai afficher#}
-<div class = "row">
-     {% for location in annonce %}     
+  <div class = "row ">
+     {% for location in annonce %}  
+        <div class="col-sm">   
           <resume>
-               {# Faisant une interpollation#}
-               <h4>categorie: {{ location.categories.titre }}</h4>
-               <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
-               <div class = "content">
+                    <h4>categorie: {{ location.categories.titre }}</h4>
+                    <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                     <img align="justify"src="{{ location.image}}" alt=""  align="left">
                     <p align="justify"> {{ location.denomination | raw}}  </p>
                     <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
@@ -31,17 +30,17 @@
                     <p align="justify"> Etage: {{ location.etage | raw}} </p>
                     <p align="justify"> Prix du bien : {{ location.cout | raw}} </p>    
                     <a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-primary"> Consulter</a>  
-                      
-                      
 
-               </div>          
+          
+</div>          
+         <hr>
           </resume>
-          <hr> </hr>
      {% endfor %} 
-</div>
+
 
 
  <div class="pagination">
+  
         {{ knp_pagination_render(annonce) }}
     </div>
 
@@ -50,3 +49,6 @@
 
 
 {% endblock %}
+
+
+
