@@ -3,7 +3,7 @@
 {% block title %}Guinot-immobilier{% endblock %}
 
 {% block body %}
-    <div class = "jumbotron">
+    <div class = "jumbotron" style="background-color:#B4F8C8">
         <br> GUINOT IMMOBILIER:</br>
         <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
     </div>
@@ -29,11 +29,8 @@
                     <p align="justify"> Chambres: {{ location.chambres | raw}} </p>
                     <p align="justify"> Etage: {{ location.etage | raw}} </p>
                     <p align="justify"> Prix du bien : {{ location.cout | raw}} </p>    
-                    <a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-primary"> Consulter</a>  
-
-          
+                    <a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-primary"> Consulter</a>    
 </div>          
-         <hr>
           </resume>
      {% endfor %} 
 
@@ -44,11 +41,11 @@
         {{ knp_pagination_render(annonce) }}
     </div>
 
-
-
-
-
 {% endblock %}
+
+
+
+
 
 
 
