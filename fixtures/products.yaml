@@ -1,0 +1,18 @@
+App\Entity\Location:
+  Location_{1..20}:
+    creat_at: "2020-11-09 11:18:52"
+    denomination: <productName()>
+    image: http://picsum.photos/id/<numberBetween(400,800)>/290/180
+    surface: <numberBetween(30, 150)>
+    type_maison: <text(2)>
+    chambres: <numberBetween(2, 10)>
+    etage: <numberBetween(1, 10)>
+    cout: <numberBetween(3000, 10000)>
+    adresse: <text(5)>
+    accessibilite: <text(2)>
+    categories_id: "<numberBetween(1,5)> x @Categorie_*"
+
+App\Entity\Categorie:
+  Categorie_{1..10}:
+    titre: <text(5)>
+    description: <text(5)>

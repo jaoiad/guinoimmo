@@ -17,14 +17,16 @@ class LocationFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
 
         //creation de fausse données : 3 categorie 
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 0; $i <= 3; $i++) {
             $cat = new Categorie();
-            $cat  -> setTitre($faker->sentence());
+            $arrray1 = array('Hotel', 'Terrain', 'Maison', 'Appartement');
+
+            $cat  -> setTitre($arrray1[$i]);
             $cat -> setDescription($faker->text($maxNbChars = 10));
                         
             $manager -> persist($cat);
 
-            for ($j = 1; $j <= 10; $j++) {
+            for ($j = 0; $j <= 10; $j++) {
              $arrray = array('Maison de ville', 'maison village','villa', 'appartement');
              
              $loc = new location();

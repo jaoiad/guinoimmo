@@ -1,51 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guinot-immobilier{% endblock %}
-
-{% block body %}
-    <div class = "jumbotron" style="background-color:#B4F8C8">
-        <br> GUINOT IMMOBILIER:</br>
-        <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
-    </div>
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
-
-
-<div class="container">
-  <div class = "row ">
-     {% for location in annonce %}  
-        <div class="col-sm">   
-          <resume>
-                    <h4>categorie: {{ location.categories.titre }}</h4>
-                    <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
-                    <img align="justify"src="{{ location.image}}" alt=""  align="left">
-                    <p align="justify"> {{ location.denomination | raw}}  </p>
-                    <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
-                    <p align="justify"> Surface: {{ location.surface | raw}} </p> 
-                    <p align="justify"> Type: {{ location.typemaison | raw}} </p> 
-                    <p align="justify"> Chambres: {{ location.chambres | raw}} </p>
-                    <p align="justify"> Etage: {{ location.etage | raw}} </p>
-                    <p align="justify"> Prix du bien : {{ location.cout | raw}} </p>    
-                    <a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-primary"> Consulter</a>    
-</div>          
-          </resume>
-     {% endfor %} 
-
-
-
- <div class="pagination">
-  
-        {{ knp_pagination_render(annonce) }}
-    </div>
-
+{% block title %}Guinot-immobilier
 {% endblock %}
 
+{% block body %}
+	<div class="jumbotron" style="background-color:#B4F8C8">
+		<br>GUINOT IMMOBILIER:</br>
+	<br>ACCESS LOCATION & VENTE D'APPARTEMENTS</br></div>{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+	{{ message }}
+</div>{% endfor %}<div class="container">
+<div class="row">
+	<div class="col-md-3">
+		{% include 'home/_filter.html.twig' with {form: form} only %}
+	</div>
+
+	<div class="col-md-9">
+		<div class="grid">
+		
+			{% for location in annonce %}
+				<div class="card">
+					<img src="{{ location.image}}" alt="" class="card-img-top">
+					<div class="card-body">
+						<h2 class="card-title">{{ location.categories.titre }}</h2>
+						<div class="card-title">
+							{{ location.denomination | raw}}
+							<div class="card-title">
+								{{ location.adresse | raw}}
+								<div class="card-title">
+									{{ location.surface | raw}}
+									<div class="card-title">
+										{{ location.typemaison | raw}}
+										<div class="card-title">
+											{{ location.chambres | raw}}
+											<div class="card-title">
+												{{ location.etage | raw}}
+												<div
+													class="class-title text-primary" style="font-weight: bold; font-size:3rem; ">
+													{# function number format:! pas de nombre apres la virgule : 0, ',', ' ' last espace au niveau des millier #}
+													{{ location.cout | number_format (0, ',',' ')}}
+													€
+												</div>
+												<a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-outline-primary">
+													Consulter</a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
 
 
+<div class="pagination">{{ knp_pagination_render(annonce) }}</div>
 
-
-
-
+{% endblock %}

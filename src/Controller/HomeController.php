@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
+
 use App\Entity\Location;
 use App\Entity\Annonces;
 use App\Form\LocationType;
+use App\Form\SearchType;
 use App\Repository\AnnoncesRepository;
 use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,14 +31,18 @@ class HomeController extends AbstractController
      */
     public function index(LocationRepository $repo, PaginatorInterface $paginator, request $request)
     {
+
+        $data=new SearchData();
+        $form=$this->createForm(SearchType::class, $data);
         $annonce = $paginator->paginate(
-            $repo->findAll(),
+            $repo->findSearch(),
             $request->query->getInt('page', 1),/*page number*/
-            9/*limit per page*/
+            8/*limit per page*/
         );
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'annonce' => $annonce
+
+            'annonce' => $annonce,
+            'form' => $form->createView()
         ]);
     }
 
@@ -76,7 +83,7 @@ class HomeController extends AbstractController
         return $this->render('home/administration.html.twig');
     }
 
-    
+
 
     /**
      * 
@@ -132,9 +139,9 @@ class HomeController extends AbstractController
             $entityManager->flush();
             if ($locations) {
                 $this->addFlash('success', 'Bien ajouter avec success');
-            } 
-                $this->addFlash('success', 'Bien modifier avec success');
-            
+            }
+            $this->addFlash('success', 'Bien modifier avec success');
+
 
             //Enregistrement et Retour sur la page de l'article
             return $this->redirectToRoute('index', ['id' => $locations->getId()]);
