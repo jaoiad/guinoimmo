@@ -36,13 +36,16 @@ class HomeController extends AbstractController
         $data->page=$request->get('page',1);
         $form=$this->createForm(SearchType::class, $data);
         $form->handleRequest($request);
-    
+        [$min, $max]= $repo->findMinMax($data);
         $coco=$repo->findSearch($data);
 
         
         return $this->render('home/index.html.twig', [
             'coco'=> $coco,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'min' => $min,
+            'max' => $max
+            
         ]);
     }
 

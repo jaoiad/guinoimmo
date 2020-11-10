@@ -23,8 +23,12 @@
 				position: sticky;
 				top: 20px;
 			}
-		
 		</style>
+		{#lien qui mène a app#}
+		{{encore_entry_link_tags('app')}}
+{{encore_entry_script_tags('app') | replace ({'src=':'defer src='}) | raw }}
+
+
 	</head>
 
 	<body>
