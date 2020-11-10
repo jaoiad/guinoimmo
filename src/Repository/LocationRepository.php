@@ -62,7 +62,7 @@ class LocationRepository extends ServiceEntityRepository
         return [(int)$results[0]['min'], (int)$results[0]['max']];
     }
 
-    private function getSearchQuery(SearchData $search, $ignorePrice=false): QueryBuilder
+    private function getSearchQuery(SearchData $search, $ignore=false): QueryBuilder
     {
         $query = $this
             ->createQueryBuilder('p')
@@ -76,17 +76,32 @@ class LocationRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
 
-        if (!empty($search->min) && $ignorePrice === false) {
+        if (!empty($search->min) && $ignore === false) {
             $query = $query
                 ->andWhere('p.cout >= :min')
                 ->setParameter('min', $search->min);
         }
 
-        if (!empty($search->max)&& $ignorePrice === false) {
+        if (!empty($search->max)&& $ignore === false) {
             $query = $query
                 ->andWhere('p.cout <= :max')
                 ->setParameter('max', $search->max);
         }
+
+
+
+        if (!empty($search->minSurface) && $ignore === false) {
+            $query = $query
+                ->andWhere('p.surface >= :minsurface')
+                ->setParameter('minsurface', $search->minSurface);
+        }
+
+        if (!empty($search->maxSurface) && $ignore === false) {
+            $query = $query
+                ->andWhere('p.surface <= :maxsurface')
+                ->setParameter('maxsurface', $search->maxSurface);
+        }
+
 
 
         if (!empty($search->categories)) {
@@ -97,4 +112,18 @@ class LocationRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+    public function SurfaceMinMax(SearchData $search): array
+    {
+
+        $results = $this->getSearchQuery($search, true)
+            ->select('MIN(p.surface) as min', 'MAX(p.surface) as max')
+            ->getQuery()
+            ->getScalarResult();
+        return [(int)$results[0]['min'], (int)$results[0]['max']];
+
+
+    }
+
+
 }

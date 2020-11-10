@@ -36,8 +36,15 @@ class SearchData
      public $min;
 
 
+    /**
+     * @var int|null
+     */
+    public $minSurface;
 
-
+    /**
+     * @var int|null
+     */
+    public $maxSurface;
 
 
 }

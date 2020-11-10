@@ -31,13 +31,13 @@
 							<div class="card-title">
 								{{ location.adresse | raw}}
 								<div class="card-title">
-									{{ location.surface | raw}}
+									{{ location.surface | raw}} <strong>m²</strong>
 									<div class="card-title">
 										{{ location.typemaison | raw}}
 										<div class="card-title">
-											{{ location.chambres | raw}}
+											{{ location.chambres | raw}} <strong>Chambres</strong>
 											<div class="card-title">
-												{{ location.etage | raw}}
+												{{ location.etage | raw}} <strong>Etages</strong>
 												<div
 													class="class-title text-primary" style="font-weight: bold; font-size:3rem; ">
 													{# function number format:! pas de nombre apres la virgule : 0, ',', ' ' last espace au niveau des millier #}

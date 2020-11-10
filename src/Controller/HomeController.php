@@ -36,7 +36,8 @@ class HomeController extends AbstractController
         $data->page=$request->get('page',1);
         $form=$this->createForm(SearchType::class, $data);
         $form->handleRequest($request);
-        [$min, $max]= $repo->findMinMax($data);
+        [$min, $max] = $repo->findMinMax($data);
+        [$minSurface, $maxSurface]= $repo->SurfaceMinMax($data);
         $coco=$repo->findSearch($data);
 
         
@@ -44,8 +45,9 @@ class HomeController extends AbstractController
             'coco'=> $coco,
             'form' => $form->createView(),
             'min' => $min,
-            'max' => $max
-            
+            'max' => $max,
+            'minSurface' => $minSurface,
+            'maxSurface'=> $maxSurface,
         ]);
     }
 
