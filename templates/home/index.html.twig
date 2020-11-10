@@ -16,6 +16,9 @@
 	</div>
 
 	<div class="col-md-9">
+	<div class="d-flex justify-content-end mb-3">
+	{{knp_pagination_sortable(coco, 'prix  ', 'p.cout')}}
+	</div>
 		<div class="grid">
 		
 			{% for location in coco %}
