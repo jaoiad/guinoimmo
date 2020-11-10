@@ -2,19 +2,25 @@
 
 
 {% block body %}
-	<h1>connecte toi sur le site</h1>
+	<div class="row">
+		<div class="col-md-6 mx-auto ">
 
-	<form class="form-groupe" action="{{path('security_login')}}" method="post">
+			<h1>connecte toi sur le site</h1>
 
-		<div class="form-groupe">
-			<input placeholder="adresse email" required name="_username" type="text" class="form-control">
-		</div>
-		<div class="form-groupe">
-			<input placeholder="mot de passe" required name="_password" type="password" class="form-control">
-		</div>
-		<div class="form-groupe">
-			<button type="submit" class="btn btn-success">connexion</button>
+			<form class="form-groupe" action="{{path('security_login')}}" method="post">
+
+				<div class="form-groupe">
+					<input placeholder="adresse email" required name="_username" type="text" class="form-control">
+				</div>
+				<div class="form-groupe mt-4">
+					<input placeholder="mot de passe" required name="_password" type="password" class="form-control">
+				</div>
+				<div class="form-groupe mt-4">
+					<button type="submit" class="btn btn-success">connexion</button>
+				</div>
+			</form>
 
 		</div>
-	</form>
-{% endblock %}
+
+
+	{% endblock %}

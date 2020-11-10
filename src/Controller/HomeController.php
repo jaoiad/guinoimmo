@@ -29,19 +29,19 @@ class HomeController extends AbstractController
      * @Route ("/accueil", name="accueil")
      * @Route("/home", name="home")
      */
-    public function index(LocationRepository $repo, PaginatorInterface $paginator, request $request)
+    public function index(LocationRepository $repo, request $request)
     {
 
         $data=new SearchData();
+        $data->page=$request->get('page',1);
         $form=$this->createForm(SearchType::class, $data);
-        $annonce = $paginator->paginate(
-            $repo->findSearch(),
-            $request->query->getInt('page', 1),/*page number*/
-            8/*limit per page*/
-        );
-        return $this->render('home/index.html.twig', [
+        $form->handleRequest($request);
+    
+        $coco=$repo->findSearch($data);
 
-            'annonce' => $annonce,
+        
+        return $this->render('home/index.html.twig', [
+            'coco'=> $coco,
             'form' => $form->createView()
         ]);
     }
