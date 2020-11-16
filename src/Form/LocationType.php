@@ -9,18 +9,27 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('creat_at')
+        
+            ->add('creat_at', null, array('attr' => array('style' => 'display:none;')),[
+            'label' => false,
+            'required' => false
+            ])
             ->add('categories', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'titre'
             ])
+            ->add('imagefile', FileType::class, [
+                'required'=> false
+            ])  
             ->add('denomination')
-            ->add('image')
+           
             ->add('surface')
             ->add('type_maison')
             ->add('chambres')

@@ -19,7 +19,7 @@
                <h5>categorie : {{location.categories.titre}}</h5>
                <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
                <div class = "content">
-                    <img align="right" src="{{ location.image}}" alt=""  align="left">
+                    <img align="right" src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('thumb') }}" alt="" align="left">
                     <p align="justify"> {{ location.denomination | raw}}  </p>
                     <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
                     <p align="justify"> Surface: {{ location.surface | raw}} </p> 

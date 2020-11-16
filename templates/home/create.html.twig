@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% form_theme FormAnnonce 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
 	<div class="form-group">
-		<div class="col-8">
-
+		<div class="col-10">
 			{% if editMode %}
 				<h1>{{message1}}</h1>
 			{% else %}
@@ -11,8 +11,23 @@
 			{% endif %}
 
 			{{form_start(FormAnnonce)}}
+			<div class="col-md-4">{{form_row(FormAnnonce.type_maison)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.denomination)}}</div>
+		
+			<div class="col-md-4">{{form_row(FormAnnonce.surface)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.chambres)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.etage)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.cout)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.adresse)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.accessibilite)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.type_maison)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.categories)}}</div>
+			<div class="col-md-4">{{form_row(FormAnnonce.imagefile)}}</div>
+		
 
-			{{form_widget(FormAnnonce)}}
+{{form_rest(FormAnnonce)}}
+
+
 
 			<button type="submit" class="btn btn-success">
 				{% if editMode %}
@@ -21,8 +36,8 @@
 					Ajouter une Location
 				{% endif %}
 			</button>
-</div>
-			{{form_end(FormAnnonce)}}
-		
+		</div>
+		{{form_end(FormAnnonce)}}
+
 	</div>
 {% endblock %}

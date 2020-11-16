@@ -41,8 +41,6 @@ class SearchType extends AbstractType {
                 'attr' => [
                     'placeholder' => 'max'
                 ]
-
-
             ])
 
         ->add('categories', EntityType::class,[

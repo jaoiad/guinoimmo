@@ -23,7 +23,11 @@
 		
 			{% for location in coco %}
 				<div class="card">
-					<img src="{{ location.image}}" alt="" class="card-img-top">
+				{% if location.filename %}
+					<img src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('thumb') }}" alt="" class="card-img-top">
+
+
+				{% endif %}
 					<div class="card-body">
 						<h2 class="card-title">{{ location.categories.titre }}</h2>
 						<div class="card-title">
@@ -44,8 +48,8 @@
 													{{ location.cout | number_format (0, ',',' ')}}
 													€
 												</div>
-												<a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-outline-primary">
-													Consulter</a>
+													<a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-outline-primary">Consulter</a>
+													
 													<div>
 														<em class="text-muted text-primary text-italic"># {{location.categories.titre}}</em>
 													</div>

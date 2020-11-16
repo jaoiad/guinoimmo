@@ -33,7 +33,7 @@ class LocationFixtures extends Fixture
                 
                     $loc->setCreatAt(new \DateTime())
                               ->setDenomination($faker->sentence($nb = 5, $asText = false))
-                              ->setImage($faker->imageUrl($width = 200, $height = 200) )
+                              ->setimagefile($faker->imageUrl($width = 200, $height = 200) )
                               ->setSurface($faker->numberBetween(10,500))
                               ->setTypeMaison($arrray[$i])
                               ->setChambres($faker->numberBetween(1,5))

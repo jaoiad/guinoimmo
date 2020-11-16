@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile as FileUploadedFile;
+use Symfony\Component\Validator\Constraints as Assert; 
 
 /**
  * @ORM\Entity(repositoryClass=LocationRepository::class)
+ * @Vich\Uploadable
  */
 class Location
 {
@@ -18,6 +22,21 @@ class Location
     private $id;
 
     /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     *  @Assert\Image(
+     *      mimeTypes="image/jpeg"
+     * ) 
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     */
+    private $imageFile;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $creat_at;
@@ -27,13 +46,6 @@ class Location
      */
     private $denomination;
 
-    
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-  
     /**
      * @ORM\Column(type="integer")
      */
@@ -105,17 +117,6 @@ class Location
     }
 
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getSurface(): ?string
     {
@@ -210,6 +211,54 @@ class Location
     {
         $this->categories = $categories;
 
+        return $this;
+    }
+
+    /**
+     * Get the value of filename
+     *
+     * @return  string|null
+     */ 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set the value of filename
+     * @param  string|null  $filename
+     * @return  self
+     */ 
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|null  $imageFile
+     *
+     * @return  self
+     */ 
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof FileUploadedFile) {
+            $this->creat_at = new \DateTime('now');
+        }
         return $this;
     }
 }
