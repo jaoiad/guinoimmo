@@ -32,22 +32,22 @@ class HomeController extends AbstractController
     public function index(LocationRepository $repo, request $request)
     {
 
-        $data=new SearchData();
-        $data->page=$request->get('page',1);
-        $form=$this->createForm(SearchType::class, $data);
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchType::class, $data);
         $form->handleRequest($request);
         [$min, $max] = $repo->findMinMax($data);
-        [$minSurface, $maxSurface]= $repo->SurfaceMinMax($data);
-        $coco=$repo->findSearch($data);
+        [$minSurface, $maxSurface] = $repo->SurfaceMinMax($data);
+        $coco = $repo->findSearch($data);
 
-        
+
         return $this->render('home/index.html.twig', [
-            'coco'=> $coco,
+            'coco' => $coco,
             'form' => $form->createView(),
             'min' => $min,
             'max' => $max,
             'minSurface' => $minSurface,
-            'maxSurface'=> $maxSurface,
+            'maxSurface' => $maxSurface,
         ]);
     }
 
@@ -125,7 +125,6 @@ class HomeController extends AbstractController
 
     public function newlocation(Location $locations = null, Request $request, EntityManagerInterface $entityManager)
     {
-
         if (!$locations) {
             $locations = new Location();
         }
@@ -142,16 +141,12 @@ class HomeController extends AbstractController
             }
             $entityManager->persist($locations);
             $entityManager->flush();
-            if ($locations) {
-                $this->addFlash('success', 'Bien ajouter avec success');
+            if ($locations->getId() !== null) {
+                $this->addFlash('success', 'Action valider avec success');
             }
-            $this->addFlash('success', 'Bien modifier avec success');
-
-
             //Enregistrement et Retour sur la page de l'article
             return $this->redirectToRoute('index', ['id' => $locations->getId()]);
         }
-
         return $this->render('home/create.html.twig', [
             'message1' => 'Modifier votre Location',
             'message2' => 'Ajouter une Location',

@@ -3,14 +3,14 @@
 {% block title %}Guinot-immobilier{% endblock %}
 
 {% block body %}
-    <div class = "jumbotron">
+<div class="jumbotron" style="background-color:#60A3D9;">
+
         <br> GUINOT IMMOBILIER:</br>
         <br> ACCESS LOCATION & VENTE D'APPARTEMENTS</br>
     </div>
 
 
 <div class="container">
-
 {# Liste de ce que j'aimerai afficher#}
 <div class = "row">
      
@@ -18,8 +18,13 @@
                {# Faisant une interpollation#}
                <h5>categorie : {{location.categories.titre}}</h5>
                <p> Date de publication: {{ location.creatAt | date('d/m/Y')}}</p>
-               <div class = "content">
-                    <img align="right" src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('thumb') }}" alt="" align="left">
+               <div class = "col-md-8">
+
+		        {% if location.filename %}
+			        <img align="right" src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('medium') }}" alt="" align="left">
+		        {% else %}
+			        <img align="right" src="{{ 'images/locations/43013.jpg' | imagine_filter('medium') }}" alt="" align="left">
+		        {% endif %}
                     <p align="justify"> {{ location.denomination | raw}}  </p>
                     <p align="justify"> Adresse: {{ location.adresse | raw}} </p> 
                     <p align="justify"> Surface: {{ location.surface | raw}} </p> 

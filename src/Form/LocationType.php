@@ -18,15 +18,15 @@ class LocationType extends AbstractType
         $builder
         
             ->add('creat_at', null, array('attr' => array('style' => 'display:none;')),[
-            'label' => false,
-            'required' => false
+            'label' => false
+            
             ])
             ->add('categories', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'titre'
             ])
-            ->add('imagefile', FileType::class, [
-                'required'=> false
+            ->add('imageFile', FileType::class, [
+              
             ])  
             ->add('denomination')
            

@@ -4,7 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="jumbotron" style="background-color:#B4F8C8">
+<div class="jumbotron" style="background-color:#60A3D9">
+
+
+
 		<br>GUINOT IMMOBILIER:</br>
 	<br>ACCESS LOCATION D'APPARTEMENTS</br></div>{% for message in app.flashes('success') %}
 <div class="alert alert-success">
@@ -16,18 +19,19 @@
 	</div>
 
 	<div class="col-md-9">
-	<div class="d-flex justify-content-end mb-3">
-	{{knp_pagination_sortable(coco, 'prix  ', 'p.cout')}}
-	</div>
+		<div class="d-flex justify-content-end mb-3">
+			{{knp_pagination_sortable(coco, 'prix  ', 'p.cout')}}
+		</div>
 		<div class="grid">
-		
+
 			{% for location in coco %}
 				<div class="card">
-				{% if location.filename %}
-					<img src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('thumb') }}" alt="" class="card-img-top">
+					{% if location.filename %}
+						<img align="right" src="{{ vich_uploader_asset(location,'imageFile') | imagine_filter('thumb') }}" alt="" align="left">
+					{% else %}
+						<img align="right" src="{{ 'images/locations/43013.jpg' | imagine_filter('thumb') }}" alt="" align="left">
+					{% endif %}
 
-
-				{% endif %}
 					<div class="card-body">
 						<h2 class="card-title">{{ location.categories.titre }}</h2>
 						<div class="card-title">
@@ -35,24 +39,28 @@
 							<div class="card-title">
 								{{ location.adresse | raw}}
 								<div class="card-title">
-									{{ location.surface | raw}} <strong>m²</strong>
+									{{ location.surface | raw}}
+									<strong>m²</strong>
 									<div class="card-title">
 										{{ location.typemaison | raw}}
 										<div class="card-title">
-											{{ location.chambres | raw}} <strong>Chambres</strong>
+											{{ location.chambres | raw}}
+											<strong>Chambres</strong>
 											<div class="card-title">
-												{{ location.etage | raw}} <strong>Etages</strong>
+												{{ location.etage | raw}}
+												<strong>Etages</strong>
 												<div
 													class="class-title text-primary" style="font-weight: bold; font-size:3rem; ">
 													{# function number format:! pas de nombre apres la virgule : 0, ',', ' ' last espace au niveau des millier #}
 													{{ location.cout | number_format (0, ',',' ')}}
 													€
 												</div>
-													<a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-outline-primary">Consulter</a>
-													
-													<div>
-														<em class="text-muted text-primary text-italic"># {{location.categories.titre}}</em>
-													</div>
+												<a href="{{ path('affichage', {'id': location.id })}}" class="btn btn-outline-primary">Consulter</a>
+
+												<div>
+													<em class="text-muted text-primary text-italic">#
+														{{location.categories.titre}}</em>
+												</div>
 
 											</div>
 										</div>
@@ -65,9 +73,8 @@
 			{% endfor %}
 
 		</div>
-<div class="mt-4">
-{{knp_pagination_render(coco)}}
-</div>
+		<div class="mt-4">
+			{{knp_pagination_render(coco)}}
+		</div>
 	</div>
-</div>
-{% endblock %}
+</div>{% endblock %}

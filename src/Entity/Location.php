@@ -32,7 +32,7 @@ class Location
      *  @Assert\Image(
      *      mimeTypes="image/jpeg"
      * ) 
-     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     * @Vich\UploadableField(mapping="location_image", fileNameProperty="filename")
      */
     private $imageFile;
 

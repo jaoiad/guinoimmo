@@ -32,3 +32,7 @@ services:
 #fixture avec faker bezhanov
     Bezhanov\Faker\Provider\Commerce: ~
     Bezhanov\Faker\Provider\Species: ~
+
+    App\Listener\ImageCacheSubscriber:
+        tags:
+        - {name: doctrine.event_subscriber}
